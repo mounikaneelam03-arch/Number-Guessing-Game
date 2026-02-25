@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="game-card">
+            <h1>Guess the Number</h1>
+            <p class="subtitle">Can you find the secret number between 1 and 100?</p>
+
+            <div class="message-box {{ msg_type }}">
+                {{ message }}
+            </div>
+
+            {% if msg_type != 'success' %}
+            <form method="POST" action="/" class="guess-form">
+                <input type="number" name="guess" placeholder="Enter your guess" required autofocus min="1" max="100">
+                <button type="submit" class="btn guess-btn">Guess</button>
+            </form>
+            {% else %}
+            <div class="success-actions">
+                <a href="{{ url_for('reset') }}" class="btn reset-btn">Play Again</a>
+            </div>
+            <!-- Balloons Container -->
+            <div class="balloons-container">
+                <div class="balloon" style="--d:0; --c:#ef476f;"></div>
+                <div class="balloon" style="--d:2; --c:#ffd166;"></div>
+                <div class="balloon" style="--d:4; --c:#06d6a0;"></div>
+                <div class="balloon" style="--d:1; --c:#118ab2;"></div>
+                <div class="balloon" style="--d:3; --c:#073b4c;"></div>
+                <div class="balloon" style="--d:5; --c:#9d4edd;"></div>
+                <div class="balloon" style="--d:0.5; --c:#ff006e;"></div>
+                <div class="balloon" style="--d:2.5; --c:#3a86ff;"></div>
+                <div class="balloon" style="--d:4.5; --c:#8338ec;"></div>
+                <div class="balloon" style="--d:1.5; --c:#fb5607;"></div>
+            </div>
+            {% endif %}
+
+            <div class="stats">
+                <p>Attempts: <span class="attempt-count">{{ attempts }}</span></p>
+                {% if msg_type != 'success' %}
+                <a href="{{ url_for('reset') }}" class="reset-link">Reset Game</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
